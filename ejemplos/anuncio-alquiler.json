@@ -1,0 +1,11 @@
+﻿{
+  "plantilla": "anuncio",
+  "titulo": ["ALQUILER", "DE CANCHA", "DE BÁSQUET Y VOLEY"],
+  "foto": "pelota-prueba.png",
+  "destacado": "FINES DE SEMANA",
+  "nota": "SUJETO A DISPONIBILIDAD.",
+  "info": [
+    { "icono": "whatsapp", "titulo": "CONSULTAR AL WHATSAPP", "grande": "+54 9 3513 21-9262" },
+    { "icono": "ubicacion", "titulo": "CLUB MAIPÚ", "texto": "LEÓN 1932, CÓRDOBA CAPITAL" }
+  ]
+}

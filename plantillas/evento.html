@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: var(--crema); }
+  .forma { position: absolute; inset: 0; background: var(--verde); }
+  .esq-1 { clip-path: polygon(0 0, 380px 0, 0 560px); }
+  .esq-2 { clip-path: polygon(1080px 860px, 1080px 1350px, 780px 1350px); }
+  .s1 { right: -40px; top: 120px; width: 300px; height: 300px; opacity: .55; }
+  .s2 { left: -60px; bottom: 140px; width: 300px; height: 320px; opacity: .55; }
+  .garabatos { position: absolute; inset: 0; width: 1080px; height: 1350px; pointer-events: none; }
+
+  .columna { position: absolute; top: 56px; left: 90px; width: 900px; height: 1250px;
+    display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .columna > * { flex: none; }
+  .titulos { margin-top: 18px; color: var(--verde-oscuro); }
+  .titulos .linea { font-size: 160px; display: block; max-width: 800px; margin: 0 auto; }
+  .titulos .sub { font-size: 86px; display: block; margin: 6px auto 0; max-width: 780px; }
+
+  .foto { flex: 1 1 auto; min-height: 260px; width: 100%; margin: 26px 0 18px; display: flex; align-items: center; justify-content: center; }
+  .foto img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 18px 22px rgba(0,0,0,.28)); }
+  .foto.marco img { width: 760px; height: 100%; object-fit: cover; border: 10px solid var(--verde-oscuro); transform: rotate(-1.5deg); filter: none; box-shadow: 14px 14px 0 var(--caqui); }
+
+  .fecha { display: flex; align-items: center; gap: 24px; font-size: 100px; color: var(--verde-oscuro); max-width: 900px; }
+  .fecha::before { content: ""; width: 30px; height: 30px; border-radius: 50%; background: var(--verde); flex: none; }
+  .principal { font-family: var(--f-titulo); font-weight: 700; font-size: 62px; color: var(--verde-oscuro); max-width: 900px; margin-top: 2px; }
+  .principal .local { color: var(--oliva); }
+  .lugar { font-size: 34px; font-weight: 700; color: var(--verde); margin-top: 4px; max-width: 900px; }
+  .divisor { width: 520px; height: 3px; background: var(--verde); margin: 16px 0 12px; position: relative; }
+  .divisor::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; background: var(--verde); transform: translate(-50%, -50%) rotate(45deg); }
+  .partido { font-family: var(--f-titulo); font-weight: 500; font-size: 42px; color: var(--verde-oscuro); line-height: 1.3; max-width: 900px; }
+</style>
+</head>
+<body>
+<div class="lienzo">
+  <div class="forma esq-1"></div>
+  <div class="forma esq-2"></div>
+  <div class="semitono s1"></div>
+  <div class="semitono s2"></div>
+  <svg class="garabatos" viewBox="0 0 1080 1350" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="6">
+    <g stroke="var(--crema)">
+      <path d="M40 150 C 110 70, 190 60, 250 80"/><path d="M225 58 L252 80 L222 100"/>
+      <circle cx="70" cy="245" r="22"/>
+      <path d="M150 190 l26 26 M176 190 l-26 26"/>
+      <path d="M880 1240 C 940 1180, 990 1160, 1040 1150"/><path d="M1012 1132 L1042 1150 L1015 1172"/>
+      <circle cx="1010" cy="1270" r="22"/>
+      <path d="M790 1290 l24 24 M814 1290 l-24 24"/>
+    </g>
+    <g stroke="var(--verde)">
+      <path d="M955 120 l30 -40 M975 145 l48 -18 M965 170 l44 10"/>
+      <circle cx="985" cy="640" r="20"/>
+      <path d="M960 700 l26 26 M986 700 l-26 26"/>
+      <path d="M90 760 l26 26 M116 760 l-26 26"/>
+      <circle cx="110" cy="850" r="18"/>
+    </g>
+  </svg>
+  <div class="columna" id="c"></div>
+  <div class="grano"></div>
+</div>
+<script src="base.js"></script>
+<script>
+renderizar(() => {
+  let h = logoHtml("", 120);
+  h += `<div class="titulos">${lista(D.titulo).map((t) => `<span class="titulo linea ajustar">${esc(t)}</span>`).join("")}
+    ${D.subtitulo ? `<span class="titulo sub ajustar">${esc(D.subtitulo)}</span>` : ""}</div>`;
+  h += `<div class="foto ${D.foto_modo === "marco" ? "marco" : ""}">${D.foto ? `<img src="${D.foto}" style="object-position:${D.foto_posicion || "center"}">` : ""}</div>`;
+  if (D.fecha) h += `<span class="fecha titulo ajustar">${esc(D.fecha)}</span>`;
+  if (D.enfrentamiento) {
+    const [a, b] = D.enfrentamiento.split(/\s+vs\.?\s+/i);
+    h += b
+      ? `<span class="principal ajustar"><span class="local">${esc(a)}</span> <span class="vs">vs</span> ${esc(b)}</span>`
+      : `<span class="principal ajustar">${esc(a)}</span>`;
+  }
+  if (D.lugar) h += `<span class="lugar ajustar">${esc(D.lugar)}</span>`;
+  const partidos = lista(D.partidos);
+  if (partidos.length) {
+    h += `<div class="divisor"></div>`;
+    h += partidos.map((p) => `<span class="partido ajustar">– ${esc(p.hora)}<span style="text-transform:none">hs.</span> ${esc(p.texto)}</span>`).join("");
+  }
+  document.getElementById("c").innerHTML = h;
+}, () => {
+  const c = document.getElementById("c");
+  c.dataset.origen = "top center";
+  ajustarAlto(c, 1250);
+});
+</script>
+</body>
+</html>

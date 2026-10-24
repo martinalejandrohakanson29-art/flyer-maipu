@@ -1,0 +1,20 @@
+{
+  "club": "Club Maipú",
+  "logo": "assets/logo.png",
+  "logo_fondo_claro": true,
+  "lema": "SIEMPRE MÁS LEJOS",
+  "colores": {
+    "verde-oscuro": "#2B391D",
+    "verde": "#46572A",
+    "oliva": "#7E8850",
+    "caqui": "#B3B483",
+    "crema": "#EEE8D5",
+    "crema-2": "#E0D9C1",
+    "tinta": "#24301A"
+  },
+  "fuentes": {
+    "titulo": "Oswald",
+    "texto": "Barlow Condensed",
+    "google_fonts": "https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow+Condensed:wght@500;600;700;800&display=block"
+  }
+}

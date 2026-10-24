@@ -1,0 +1,17 @@
+{
+  "plantilla": "agenda",
+  "deporte": "basquet",
+  "titulo": ["AGENDA", "DEPORTIVA"],
+  "etiqueta": "CATEGORÍA",
+  "subtitulo": "DESARROLLO FASE 2",
+  "fecha": "SÁBADO 12/09",
+  "enfrentamiento": "MAIPÚ vs RACING",
+  "lugar": "CANCHA: CLUB ATLÉTICO RACING",
+  "partidos": [
+    { "hora": "09:00", "texto": "CAT U16" },
+    { "hora": "11:00", "texto": "CAT U19" }
+  ],
+  "lema": "MAIPÚ BÁSQUET SIEMPRE MÁS LEJOS",
+  "foto": "foto-prueba.png",
+  "foto_posicion": "center top"
+}

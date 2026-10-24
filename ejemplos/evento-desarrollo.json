@@ -1,0 +1,14 @@
+﻿{
+  "plantilla": "evento",
+  "deporte": "basquet",
+  "titulo": ["CATEGORÍA", "DESARROLLO"],
+  "subtitulo": "FASE 2",
+  "foto": "pelota-prueba.png",
+  "fecha": "SÁBADO 15/08",
+  "enfrentamiento": "MAIPÚ vs HINDÚ",
+  "lugar": "CANCHA: MAIPÚ",
+  "partidos": [
+    { "hora": "09:00", "texto": "CAT U16" },
+    { "hora": "11:00", "texto": "CAT U19" }
+  ]
+}

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: var(--verde-oscuro); color: var(--crema); }
+  .fondo { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, var(--verde) 0%, var(--verde-oscuro) 70%); }
+  .forma { position: absolute; inset: 0; background: var(--crema); }
+  .tri-1 { clip-path: polygon(760px 0, 1080px 0, 1080px 300px); }
+  .tri-2 { clip-path: polygon(0 760px, 190px 920px, 0 1080px); opacity: .92; }
+  .tri-3 { clip-path: polygon(1080px 560px, 900px 760px, 1080px 920px); opacity: .92; }
+  .tri-4 { clip-path: polygon(1080px 1190px, 1000px 1350px, 1080px 1350px); }
+  .s1 { --punto: var(--crema); left: -100px; top: 380px; width: 380px; height: 640px; opacity: .45; }
+  .s2 { --punto: var(--crema); right: -100px; top: 300px; width: 360px; height: 600px; opacity: .45; }
+  .garabatos { position: absolute; inset: 0; width: 1080px; height: 1350px; pointer-events: none; }
+  .logo-pos { position: absolute; top: 40px; right: 40px; transform: rotate(-6deg); z-index: 3; }
+
+  .columna { position: absolute; top: 50px; left: 64px; width: 952px; height: 1250px; display: flex; flex-direction: column; align-items: center; }
+  .columna > * { flex: none; }
+  .titulos { align-self: flex-start; transform: rotate(-3deg); transform-origin: left; width: 100%; }
+  .titulos .linea { display: block; font-size: 150px; max-width: 700px; }
+  .titulos .t-crema { color: var(--crema); }
+  .titulos .t-caqui { color: var(--caqui); }
+  .titulos .t-caja { display: inline-block; font-size: 96px; max-width: 952px; margin-top: 18px; box-shadow: 10px 10px 0 rgba(0,0,0,.25); }
+
+  .foto { flex: 1 1 auto; min-height: 260px; width: 100%; margin: 26px 0 14px; display: flex; align-items: center; justify-content: center; }
+  .foto img { width: 80%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 26px rgba(0,0,0,.5)); }
+  .foto.marco img { width: 720px; height: 100%; max-width: none; object-fit: cover; border: 10px solid var(--crema); transform: rotate(-2deg); filter: none; box-shadow: 14px 14px 0 var(--caqui); }
+
+  .destacado { display: flex; align-items: center; gap: 22px; font-size: 64px; color: var(--crema); max-width: 900px; }
+  .destacado::before, .destacado::after { content: ""; width: 70px; height: 3px; background: var(--crema); flex: none; }
+  .nota { font-size: 34px; font-weight: 600; color: var(--crema); letter-spacing: .04em; margin-top: -4px; max-width: 900px; }
+
+  .info { width: 700px; margin-top: 14px; }
+  .item { display: flex; align-items: center; gap: 28px; padding: 18px 0; border-top: 3px solid var(--caqui); }
+  .item .icono { width: 84px; height: 84px; flex: none; color: var(--crema); }
+  .item .textos { display: grid; min-width: 0; }
+  .item .chico { font-size: 38px; font-weight: 700; color: var(--crema); line-height: 1.05; max-width: 580px; }
+  .item .grande { font-family: var(--f-titulo); font-size: 60px; font-weight: 700; color: var(--crema); line-height: 1.05; max-width: 580px; }
+  .item .sec { font-size: 32px; font-weight: 600; color: var(--caqui); max-width: 580px; }
+</style>
+</head>
+<body>
+<div class="lienzo">
+  <div class="fondo"></div>
+  <div class="semitono s1"></div>
+  <div class="semitono s2"></div>
+  <div class="forma tri-1"></div>
+  <div class="forma tri-2"></div>
+  <div class="forma tri-3"></div>
+  <div class="forma tri-4"></div>
+  <svg class="garabatos" viewBox="0 0 1080 1350" fill="none" stroke="var(--crema)" stroke-linecap="round" stroke-width="7">
+    <path d="M150 640 l-34 -30 M140 690 l-50 -6 M160 600 l-14 -44"/>
+    <path d="M880 520 l40 -26 M890 570 l50 4 M860 480 l16 -44"/>
+    <path d="M700 40 l26 -30 M740 70 l40 -14"/>
+  </svg>
+  <div class="logo-pos" id="logo"></div>
+  <div class="columna" id="c"></div>
+  <div class="grano"></div>
+</div>
+<script src="base.js"></script>
+<script>
+renderizar(() => {
+  document.getElementById("logo").innerHTML = logoHtml("", 170, true);
+  const lineas = lista(D.titulo);
+  const estilo = (i) => {
+    // por defecto: crema, caqui, y la última línea (si hay 3 o más) en caja crema
+    if (lineas.length >= 3 && i === lineas.length - 1) return "t-caja caja caja-crema";
+    return i % 2 ? "t-caqui" : "t-crema";
+  };
+  let h = `<div class="titulos">${lineas.map((t, i) => `<span class="titulo linea ajustar ${estilo(i)}">${esc(t)}</span>`).join("")}</div>`;
+  h += `<div class="foto ${D.foto_modo === "marco" ? "marco" : ""}">${D.foto ? `<img src="${D.foto}" style="object-position:${D.foto_posicion || "center"}">` : ""}</div>`;
+  if (D.destacado) h += `<span class="destacado titulo ajustar">${esc(D.destacado)}</span>`;
+  if (D.nota) h += `<span class="nota ajustar">${esc(D.nota)}</span>`;
+  const info = lista(D.info);
+  if (info.length) {
+    h += `<div class="info">${info.map((x) => `
+      <div class="item">${icono(x.icono || "info")}
+        <div class="textos">
+          ${x.titulo ? `<span class="chico ajustar">${esc(x.titulo)}</span>` : ""}
+          ${x.grande ? `<span class="grande ajustar">${esc(x.grande)}</span>` : ""}
+          ${x.texto ? `<span class="sec ajustar">${esc(x.texto)}</span>` : ""}
+        </div></div>`).join("")}</div>`;
+  }
+  document.getElementById("c").innerHTML = h;
+}, () => {
+  const c = document.getElementById("c");
+  c.dataset.origen = "top center";
+  ajustarAlto(c, 1250);
+});
+</script>
+</body>
+</html>

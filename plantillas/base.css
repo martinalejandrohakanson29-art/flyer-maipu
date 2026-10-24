@@ -1,0 +1,50 @@
+/* Estilos compartidos. Los colores y fuentes llegan desde assets/marca.json (base.js los aplica). */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1350px; overflow: hidden; }
+body {
+  font-family: var(--f-texto), sans-serif;
+  color: var(--tinta);
+  background: var(--crema);
+  text-transform: uppercase;
+}
+.lienzo { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
+.titulo { font-family: var(--f-titulo), sans-serif; font-weight: 700; line-height: .95; letter-spacing: -.005em; }
+
+/* Ajuste automático: el texto se achica hasta entrar en su ancho */
+.ajustar { display: inline-block; white-space: nowrap; overflow: hidden; max-width: 100%; vertical-align: top; }
+
+/* Textura de grano por encima de todo */
+.grano {
+  position: absolute; inset: 0; pointer-events: none; z-index: 50; opacity: .22; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Trama de semitono (puntos) que se desvanece */
+.semitono {
+  position: absolute; pointer-events: none;
+  background-image: radial-gradient(circle, var(--punto, var(--verde)) 0 42%, transparent 46%);
+  background-size: 15px 15px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 15%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 15%, transparent 100%);
+}
+
+/* Logo del club */
+.logo { display: block; object-fit: contain; }
+.logo.con-fondo { background: var(--crema); padding: 14px; border-radius: 14px; box-shadow: 6px 6px 0 rgba(0,0,0,.25); }
+
+/* Cajas de marca */
+.caja { display: inline-block; padding: .06em .22em .04em; }
+.caja-oscura { background: var(--verde-oscuro); color: var(--crema); }
+.caja-caqui { background: var(--caqui); color: var(--verde-oscuro); }
+.caja-crema { background: var(--crema); color: var(--verde-oscuro); }
+.vs { font-size: .62em; font-weight: 600; text-transform: lowercase; color: var(--oliva); margin: 0 .12em; }
+
+.icono svg { width: 100%; height: 100%; display: block; }
+
+/* Escudos de equipos */
+.escudo {
+  width: 170px; height: 170px; border-radius: 50%; background: var(--crema);
+  border: 6px solid var(--verde-oscuro); display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.escudo img { width: 82%; height: 82%; object-fit: contain; }
+.escudo .iniciales { font-family: var(--f-titulo); font-weight: 700; font-size: 64px; color: var(--verde-oscuro); }

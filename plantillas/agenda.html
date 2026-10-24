@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+  .foto { position: absolute; top: 0; right: 0; left: 380px; bottom: 0; background-size: cover; background-repeat: no-repeat; filter: saturate(.92) contrast(1.05); }
+  .velo { position: absolute; inset: 0; left: 380px;
+    background: linear-gradient(90deg, var(--verde-oscuro) 0 12%, transparent 48%), linear-gradient(0deg, rgba(20,28,12,.45), transparent 35%); }
+  .forma { position: absolute; inset: 0; }
+  .franja-1 { background: var(--verde-oscuro); clip-path: polygon(600px 0, 690px 0, 790px 1350px, 700px 1350px); }
+  .franja-2 { background: var(--caqui); clip-path: polygon(700px 0, 712px 0, 812px 1350px, 800px 1350px); opacity: .85; }
+  .panel { background: var(--crema); clip-path: polygon(0 0, 610px 0, 640px 380px, 625px 400px, 712px 1350px, 0 1350px); }
+  .cancha { position: absolute; left: -40px; width: 620px; height: 420px; }
+  .s1 { --punto: var(--caqui); right: -60px; bottom: 120px; width: 380px; height: 380px; opacity: .55; }
+
+  .lema { position: absolute; top: 60px; right: 56px; width: 220px; color: var(--crema); font-size: 40px; font-weight: 600;
+    letter-spacing: .06em; line-height: 1.15; text-shadow: 0 2px 10px rgba(0,0,0,.45); padding-bottom: 22px; border-bottom: 3px solid var(--caqui); }
+
+  .contenido { position: absolute; top: 56px; left: 64px; width: 680px; }
+  .titulos { margin-top: 26px; transform: rotate(-1.2deg); transform-origin: left; }
+  .titulos .linea { font-size: 150px; margin-bottom: 10px; }
+  .titulos .caja { padding: .05em .16em .02em; box-shadow: 8px 8px 0 rgba(0,0,0,.18); }
+
+  .categoria { display: inline-grid; margin-top: 34px; min-width: 470px; max-width: 600px; text-align: center; }
+  .categoria .etiq { background: var(--verde-oscuro); color: var(--crema); font-size: 36px; font-weight: 600; letter-spacing: .42em; padding: 6px 0 4px .42em; }
+  .categoria .valor { background: var(--caqui); color: var(--verde-oscuro); font-family: var(--f-titulo); font-weight: 600; font-size: 50px; padding: 2px 22px 4px; }
+  .categoria .valor.ajustar { max-width: none; }
+
+  .fecha { margin-top: 30px; display: inline-flex; align-items: center; gap: 22px; background: var(--verde-oscuro); color: var(--crema);
+    font-family: var(--f-titulo); font-weight: 600; font-size: 54px; padding: 6px 34px 8px 26px; }
+  .fecha::before { content: ""; width: 20px; height: 20px; border-radius: 50%; background: var(--caqui); }
+
+  .principal { display: block; margin-top: 24px; font-size: 88px; color: var(--verde-oscuro); max-width: 640px; }
+  .lugar { display: block; font-size: 36px; font-weight: 700; color: var(--verde); margin-top: 4px; max-width: 620px; }
+
+  .filas { margin-top: 18px; }
+  .fila { display: flex; align-items: center; gap: 24px; margin-top: 22px; font-size: 54px; }
+  .fila .circulo { width: 78px; height: 78px; flex: none; border-radius: 50%; background: var(--verde-oscuro); color: var(--crema); padding: 14px; }
+  .fila .hora { font-family: var(--f-titulo); font-weight: 600; color: var(--verde-oscuro); }
+  .fila .hora small { font-size: .62em; }
+  .fila .txt { font-weight: 700; color: var(--tinta); max-width: 330px; }
+
+  .duelo-hora { display: inline-block; margin-top: 30px; background: var(--caqui); color: var(--verde-oscuro); font-family: var(--f-titulo);
+    font-weight: 600; font-size: 54px; padding: 2px 70px 4px; clip-path: polygon(3% 0, 100% 0, 97% 100%, 0 100%); }
+  .duelo { display: grid; grid-template-columns: 200px 90px 200px; align-items: center; justify-items: center; margin-top: 18px; width: 490px; }
+  .duelo .escudo { width: 160px; height: 160px; }
+  .duelo .lado { display: grid; justify-items: center; gap: 8px; }
+  .duelo .nombre { font-size: 34px; font-weight: 800; color: var(--verde-oscuro); max-width: 200px; }
+  .duelo .vstxt { font-family: var(--f-titulo); font-weight: 700; font-size: 58px; color: var(--verde-oscuro); padding-bottom: 46px; }
+  .duelo-detalle { font-size: 30px; font-weight: 600; color: var(--verde); width: 490px; text-align: center; margin-top: 2px; }
+
+  .cierre { width: 560px; height: 3px; background: var(--verde-oscuro); margin-top: 34px; }
+</style>
+</head>
+<body>
+<div class="lienzo">
+  <div class="foto" id="foto"></div>
+  <div class="velo"></div>
+  <div class="forma franja-1"></div>
+  <div class="forma franja-2"></div>
+  <div class="forma panel"></div>
+  <svg class="cancha" viewBox="0 0 620 420">
+    <circle cx="150" cy="440" r="300" fill="var(--verde-oscuro)"/>
+    <g fill="none" stroke="var(--crema)" stroke-width="12" stroke-linecap="round" opacity=".9">
+      <path d="M-140 300 C 60 200, 260 220, 450 380"/>
+      <path d="M150 140 C 120 260, 130 360, 170 460"/>
+      <path d="M330 190 C 260 260, 240 360, 280 460"/>
+    </g>
+  </svg>
+  <div class="semitono s1"></div>
+  <div class="lema" id="lema"></div>
+  <div class="contenido" id="c"></div>
+  <div class="grano"></div>
+</div>
+<script src="base.js"></script>
+<script>
+renderizar(() => {
+  const foto = document.getElementById("foto");
+  if (D.foto) {
+    foto.style.backgroundImage = `url(${D.foto})`;
+    foto.style.backgroundPosition = D.foto_posicion || "center top";
+  }
+
+  const lema = D.lema ?? M.lema;
+  if (lema) document.getElementById("lema").innerHTML = esc(lema).split(/\s+/).join("<br>");
+  else document.getElementById("lema").remove();
+
+  const cajas = ["caja-oscura", "caja-caqui"];
+  const titulos = lista(D.titulo).map((t, i) =>
+    `<div class="linea"><span class="titulo caja ${cajas[i % 2]} ajustar">${esc(t)}</span></div>`).join("");
+
+  let h = logoHtml("", 140) +`<div class="titulos">${titulos}</div>`;
+
+  if (D.subtitulo) {
+    h += `<div class="categoria">
+      ${D.etiqueta ? `<div class="etiq">${esc(D.etiqueta)}</div>` : ""}
+      <div class="valor">${esc(D.subtitulo)}</div></div>`;
+  }
+  if (D.fecha) h += `<div><div class="fecha">${esc(D.fecha)}</div></div>`;
+  if (D.enfrentamiento) h += `<span class="principal titulo ajustar">${conVs(D.enfrentamiento)}</span>`;
+  if (D.lugar) h += `<span class="lugar ajustar">${esc(D.lugar)}</span>`;
+
+  const partidos = lista(D.partidos);
+  if (partidos.some((p) => p.visitante)) {
+    // Modo duelo: escudo propio vs escudo rival por cada horario
+    h += partidos.map((p) => `
+      <div class="duelo-hora">${esc(p.hora)} HS.</div>
+      <div class="duelo">
+        <div class="lado">${escudoHtml(p.escudo_local || M.logo, p.local)}<span class="nombre ajustar">${esc(p.local || "Maipú")}</span></div>
+        <div class="vstxt">VS</div>
+        <div class="lado">${escudoHtml(p.escudo_visitante, p.visitante)}<span class="nombre ajustar">${esc(p.visitante)}</span></div>
+      </div>
+      ${p.texto ? `<div class="duelo-detalle">${esc(p.texto)}</div>` : ""}`).join("");
+  } else if (partidos.length) {
+    h += `<div class="filas">${partidos.map((p) => `
+      <div class="fila"><div class="circulo">${icono(p.icono)}</div>
+        <span class="hora">${esc(p.hora)}<small>hs.</small></span>
+        <span class="txt ajustar">${esc(p.texto)}</span></div>`).join("")}</div>`;
+  }
+  h += `<div class="cierre"></div>`;
+  document.getElementById("c").innerHTML = h;
+}, () => {
+  const c = document.getElementById("c");
+  ajustarAlto(c, 1350 - 56 - 40);
+  // La decoración de cancha va debajo del contenido; si no hay lugar, se quita
+  const fin = c.getBoundingClientRect().bottom;
+  const cancha = document.querySelector(".cancha");
+  if (1350 - fin < 130) cancha.remove();
+  else cancha.style.top = fin + 30 + "px";
+});
+</script>
+</body>
+</html>

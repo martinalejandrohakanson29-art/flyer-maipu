@@ -1,0 +1,15 @@
+﻿{
+  "plantilla": "agenda",
+  "deporte": "voley",
+  "titulo": ["COPA DE ORO"],
+  "etiqueta": "TORNEO FEMENINO",
+  "subtitulo": "CATEGORÍA 1",
+  "fecha": "SÁBADO 24 OCT",
+  "lugar": "CLUB COMUNICACIONES",
+  "partidos": [
+    { "hora": "16:00", "local": "MAIPÚ", "visitante": "LAS VETES" },
+    { "hora": "17:00", "local": "MAIPÚ", "visitante": "TIEMPO LIBRE" }
+  ],
+  "lema": "MAIPÚ VOLEY",
+  "foto": "foto-prueba.png"
+}
